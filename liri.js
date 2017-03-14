@@ -3,6 +3,8 @@ var Twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
 
+var fs = require('fs');
+
 var getMyTweets = function() {
 
 	var client = new Twitter(keys.twitterKeys);
@@ -65,19 +67,40 @@ var getMeMovie = function(movieName) {
 	});
 }
 
-var doWhatItSays = function() {
-	fs.readFile('random.txt','utf8', function(err, data) {
-	  if (err) throw err;
+// var doWhatItSays = function() {
+// 	fs.readFile('random.txt','utf8', function(err, data) {
+// 	  if (err) throw err;
 
-	  var dataArr = data.split(',');
+// 	  var dataArr = data.split(',');
 
-	  if (dataArr.length == 2) {
-	  	pick(dataArr[0], dataArr[1]);
-	  }, else if (dataArr.length == 1) {
-	  	pick(dataArr[0]);
-	  }	
+// 	  if (dataArr.length == 2) {
+// 	  	pick(dataArr[0], dataArr[1]);
+// 	  }, else if (dataArr.length == 1) {
+// 	  	pick(dataArr[0]);
+// 	  }	
+// 	});
+// }
+
+
+var doWhatItSays = function(){
+	fs.readFile('random.txt', 'utf8', function(err, data){
+		if (!err){
+			console.log(data);
+			var splitArray = data.split(',');
+			var userActivity = splitArray[0];
+			var userInput = splitArray[1];
+
+			console.log(userActivity);
+			console.log(userInput);
+			pick(userActivity, userInput);
+		}
+
+		else {
+			console.log('Error! ' + err);
+		}
 	});
 }
+
 
 var pick = function(caseData, functionData) {
 	switch(caseData) {
