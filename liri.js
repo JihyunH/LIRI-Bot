@@ -1,4 +1,4 @@
-var keys = required('./keys.js');
+var keys = require('./keys.js');
 var Twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
@@ -33,11 +33,10 @@ var getMeSpotify = function(songName) {
 	        return;
 	    }
 	 
-	    var song = data.tracks.items;
+	    var songs = data.tracks.items;
 	    for(var i=0; i<songs.length; i++){
 	    	console.log(i);
-	    	console.log('artist(s): ' + song[i].artists.map(
-	    		getArtistNames));
+	    	console.log('artist(s): ' + songs[i].artists.map(getArtistNames));
 	    	console.log('song name: ' + songs[i].name);
 	    	console.log('preview song: ' + songs[i].preview_url);
 	    	console.log('album: ' + songs[i].album.name);
@@ -74,7 +73,7 @@ var doWhatItSays = function() {
 
 	  if (dataArr.length == 2) {
 	  	pick(dataArr[0], dataArr[1]);
-	  }, else if (dataArr.length ==1) {
+	  }, else if (dataArr.length == 1) {
 	  	pick(dataArr[0]);
 	  }	
 	});
@@ -90,6 +89,7 @@ var pick = function(caseData, functionData) {
 			break;
 		case 'movie-this':
 			getMeMovie(functionData);
+			break;
 		case 'do-what-it-says':
 			doWhatItSays();
 			break;
